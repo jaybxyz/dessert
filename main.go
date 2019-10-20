@@ -1,7 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"github.com/kogisin/dessert/cmd"
+)
 
 func main() {
-	fmt.Println("Dessert")
+	cmd.Execute()
 }
