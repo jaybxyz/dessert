@@ -1,0 +1,4 @@
+[client]
+rpc_endpoint = "<ip>:<port>"
+lcd_endpoint = "<ip>:<port>"
+

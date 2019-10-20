@@ -12,5 +12,5 @@
 *.out
 
 # configuration for this project
-*.toml
-*.yaml
+config.toml
+config.yaml
