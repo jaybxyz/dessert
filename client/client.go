@@ -26,10 +26,15 @@ func New(rpcEndpoint, lcdEndpoint string) (ConfigWrapper, error) {
 	return ConfigWrapper{rpcClient, lcdEndpoint, cdc.Codec}, nil
 }
 
+// Stop defers the node stop execution to the RPC client.
+func (cw ConfigWrapper) Stop() error {
+	return cw.rpcClient.Stop()
+}
+
 // LatestHeight returns the latest block height on the active chain. An error
 // is returned if the query fails.
-func (cp ConfigWrapper) LatestHeight() (int64, error) {
-	status, err := cp.rpcClient.Status()
+func (cw ConfigWrapper) LatestHeight() (int64, error) {
+	status, err := cw.rpcClient.Status()
 	if err != nil {
 		return -1, err
 	}

@@ -4,10 +4,13 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/kogisin/dessert/client"
 	"github.com/kogisin/dessert/config"
 
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
+
+	"github.com/pkg/errors"
 
 	"github.com/spf13/cobra"
 )
@@ -23,17 +26,11 @@ var (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "seasoning [config-file]",
+	Use:   "dessert [config.toml]",
 	Args:  cobra.ExactArgs(1),
-	Short: "Seasoning is like salt & pepper for Cosmos SDK based projects",
-	Long: `A cosmos Hub data aggregator. It improves the Hub's data accessibility
-by providing an indexed PostgreSQL database exposing aggregated resources and
-models such as blocks, validators, pre-commits, transactions, and various aspects
-of the governance module. Juno is meant to run with a GraphQL layer on top so that
-it even further eases the ability for developers and downstream clients to answer
-queries such as "what is the average gas cost of a block?" while also allowing
-them to compose more aggregate and complex queries.`,
-	RunE: cmdHandler,
+	Short: "dessert is a sample project that provides delicious desserts for Cosmos SDK based projects",
+	Long:  `A Sample Project that provides various examples of how to work with Cosmos SDK Based Project.`,
+	RunE:  cmdHandler,
 }
 
 func init() {
@@ -72,12 +69,12 @@ func cmdHandler(cmd *cobra.Command, args []string) error {
 	cfgFile := args[0]
 	cfg := config.ParseConfig(cfgFile)
 
-	cp, err := client.New(cfg.RPCEndpoint, cfg.LCDEndpoint)
+	cw, err := client.New(cfg.RPCEndpoint, cfg.LCDEndpoint)
 	if err != nil {
 		return errors.Wrap(err, "failed to start RPC client")
 	}
 
-	defer cp.Stop() // nolint: errcheck
+	defer cw.Stop() // nolint: errcheck
 
 	return nil
 }
