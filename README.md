@@ -36,7 +36,7 @@ $ go build
 
 OR
 
-$ make install (in progress)
+$ make install 
 ```
 
 Create configuration file named `config.toml`
