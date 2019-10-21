@@ -25,6 +25,27 @@ This project assumes that you already know [Go language](https://golang.org/) an
 
 ## Installation
 
+Clone this repository
+```
+$ git clone https://github.com/kogisin/dessert.git
+```
+
+Build executable file `dessert`
+```
+$ go build
+
+OR
+
+$ make install (in progress)
+```
+
+Create configuration file named `config.toml`
+```
+$ dessert init
+```
+
+
+
 ## Usage
 
 ## Examples
