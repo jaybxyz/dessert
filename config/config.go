@@ -10,8 +10,19 @@ import (
 
 // Config defines all necessary configuration parameters.
 type Config struct {
+	Client ClientConfig `toml:"client"`
+	Wallet WalletConfig `toml:"wallet"`
+}
+
+// ClientConfig defines all client configuration parameters.
+type ClientConfig struct {
 	RPCEndpoint string `toml:"rpc_endpoint"`
 	LCDEndpoint string `toml:"lcd_endpoint"`
+}
+
+// WalletConfig defines all wallet configuration parameters.
+type WalletConfig struct {
+	Mnemonic string `toml:"mnemonic"`
 }
 
 // ParseConfig attempts to read and parse a Juno config from the given file path.
