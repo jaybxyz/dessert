@@ -1,8 +1,10 @@
 package cmd
 
 import (
+	"crypto/tls"
 	"fmt"
 	"os"
+	"time"
 
 	"github.com/kogisin/dessert/client"
 	"github.com/kogisin/dessert/config"
@@ -10,9 +12,9 @@ import (
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
 
-	"github.com/pkg/errors"
-
 	"github.com/spf13/cobra"
+
+	resty "gopkg.in/resty.v1"
 )
 
 const (
@@ -35,12 +37,27 @@ var rootCmd = &cobra.Command{
 }
 
 func init() {
+
+	// Configuration
+	cfg := config.ParseConfig(cfgFile)
+
+	cw, err := client.New(cfg.Client.RPCEndpoint, cfg.Client.LCDEndpoint)
+	if err != nil {
+		log.Fatal().Err(err).Str("failed to start RPC client", cfg.Client.RPCEndpoint)
+	}
+
+	defer cw.Stop() // nolint: errcheck
+
+	// Sets timeout for http request.
+	resty.SetTimeout(3 * time.Second)
+	resty.SetTLSClientConfig(&tls.Config{InsecureSkipVerify: true})
+
 	// Available Commands
-	rootCmd.AddCommand(initCmd)
-	rootCmd.AddCommand(versionCmd)
-	rootCmd.AddCommand(walletCmd)
-	rootCmd.AddCommand(queryCmd)
-	rootCmd.AddCommand(txCmd)
+	rootCmd.AddCommand(getInitCmd())
+	rootCmd.AddCommand(getVersionCmd())
+	rootCmd.AddCommand(getQueryCmd(cfg, cw))
+	rootCmd.AddCommand(getWalletCmd())
+	rootCmd.AddCommand(getTxCmd())
 
 	// Flags
 	rootCmd.PersistentFlags().StringVar(&cfgFilePath, "config-path", cfgFile, "config.toml file path")
@@ -66,8 +83,7 @@ func cmdHandler(cmd *cobra.Command, args []string) error {
 	zerolog.SetGlobalLevel(logLvl)
 
 	switch logFormat {
-	case logLevelJSON:
-		// JSON is the default logging format
+	case logLevelJSON: // JSON is the default logging format
 
 	case logLevelText:
 		log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stderr})
@@ -75,15 +91,6 @@ func cmdHandler(cmd *cobra.Command, args []string) error {
 	default:
 		return fmt.Errorf("invalid logging format: %s", logFormat)
 	}
-
-	cfg := config.ParseConfig(cfgFile)
-
-	cw, err := client.New(cfg.Client.RPCEndpoint, cfg.Client.LCDEndpoint)
-	if err != nil {
-		return errors.Wrap(err, "failed to start RPC client")
-	}
-
-	defer cw.Stop() // nolint: errcheck
 
 	return nil
 }
