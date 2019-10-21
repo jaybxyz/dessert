@@ -4,15 +4,16 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var txCmd = &cobra.Command{
-	Use:     "tx",
-	Aliases: []string{"t", "txs", "transaction", "transactions"},
-	Short:   "Transaction subcommands",
-	Long:    `Transaction subcommands`,
-	RunE:    txCmdHandler,
-}
+func getTxCmd() *cobra.Command {
+	txCmd := &cobra.Command{
+		Use:     "tx",
+		Aliases: []string{"t", "txs", "transaction", "transactions"},
+		Short:   "Transaction subcommands",
+		RunE: func(cmd *cobra.Command, args []string) error {
 
-func txCmdHandler(cmd *cobra.Command, args []string) error {
+			return nil
+		},
+	}
 
-	return nil
+	return txCmd
 }

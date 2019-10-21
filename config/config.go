@@ -22,7 +22,6 @@ type ClientConfig struct {
 
 // WalletConfig defines all wallet configuration parameters.
 type WalletConfig struct {
-	Network  string `toml:"network"`
 	Mnemonic string `toml:"mnemonic"`
 }
 

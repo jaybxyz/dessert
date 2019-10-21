@@ -4,6 +4,7 @@ import (
 	"github.com/cosmos/cosmos-sdk/codec"
 
 	cdc "github.com/kogisin/dessert/codec"
+
 	rpcclient "github.com/tendermint/tendermint/rpc/client"
 )
 
@@ -12,7 +13,7 @@ import (
 type ConfigWrapper struct {
 	rpcClient   rpcclient.Client // Tendermint RPC node
 	lcdEndpoint string           // Full node
-	cdc         *codec.Codec
+	Codec       *codec.Codec
 }
 
 // New creates a new ConfigWrapper

@@ -40,11 +40,10 @@ $ make install
 ```
 
 Create configuration file named `config.toml`
+You can also just copy `example.toml` file and paste in the same level of directory and name it `config.toml`
 ```
 $ dessert init
 ```
-
-
 
 ## Usage
 
