@@ -2,3 +2,6 @@
 rpc_endpoint = "<ip>:<port>"
 lcd_endpoint = "<ip>:<port>"
 
+[wallet]
+network = "<network>"
+mnemonic = "<mnemonic phrases>"
