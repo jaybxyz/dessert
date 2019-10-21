@@ -16,24 +16,34 @@ import (
 )
 
 const (
+	cfgFile      = "./config.toml"
 	logLevelJSON = "json"
 	logLevelText = "text"
 )
 
 var (
-	logLevel  string
-	logFormat string
+	cfgFilePath string
+	logLevel    string
+	logFormat   string
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "dessert [config.toml]",
-	Args:  cobra.ExactArgs(1),
-	Short: "dessert is a sample project that provides delicious desserts for Cosmos SDK based projects",
-	Long:  `A Sample Project that provides various examples of how to work with Cosmos SDK Based Project.`,
-	RunE:  cmdHandler,
+	Use:     "dessert [command]",
+	Short:   "dessert is a sample project that provides various examples of how to work with Cosmos SDK based projects.",
+	Long:    `dessert is a sample project that provides various examples of how to work with Cosmos SDK based projects.`,
+	PreRunE: cmdHandler,
 }
 
 func init() {
+	// Available Commands
+	rootCmd.AddCommand(initCmd)
+	rootCmd.AddCommand(versionCmd)
+	rootCmd.AddCommand(walletCmd)
+	rootCmd.AddCommand(queryCmd)
+	rootCmd.AddCommand(txCmd)
+
+	// Flags
+	rootCmd.PersistentFlags().StringVar(&cfgFilePath, "config-path", cfgFile, "config.toml file path")
 	rootCmd.PersistentFlags().StringVar(&logLevel, "log-level", zerolog.InfoLevel.String(), "logging level")
 	rootCmd.PersistentFlags().StringVar(&logFormat, "log-format", logLevelJSON, "logging format; must be either json or text")
 }
@@ -66,10 +76,9 @@ func cmdHandler(cmd *cobra.Command, args []string) error {
 		return fmt.Errorf("invalid logging format: %s", logFormat)
 	}
 
-	cfgFile := args[0]
 	cfg := config.ParseConfig(cfgFile)
 
-	cw, err := client.New(cfg.RPCEndpoint, cfg.LCDEndpoint)
+	cw, err := client.New(cfg.Client.RPCEndpoint, cfg.Client.LCDEndpoint)
 	if err != nil {
 		return errors.Wrap(err, "failed to start RPC client")
 	}

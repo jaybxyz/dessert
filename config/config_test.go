@@ -16,6 +16,7 @@ func TestParseConfig(t *testing.T) {
 	if assert.NotEmpty(t, cfg) {
 		t.Logf("RPCEndpoint %s", cfg.Client.LCDEndpoint)
 		t.Logf("LCDEndpoint %s", cfg.Client.LCDEndpoint)
+		t.Logf("Mnemonic %s", cfg.Wallet.Network)
 		t.Logf("Mnemonic %s", cfg.Wallet.Mnemonic)
 	}
 }
