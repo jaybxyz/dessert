@@ -87,11 +87,7 @@ If you want to contribute code, please see [CONTRIBUTING.md](https://github.com/
 
 ## Support ⭐️ 
 
-**If you find this project useful, please give it a ⭐️star** 
-
-In plus, you can always donate some ATOMs to this address for a cup of coffee.
-
-> cosmos1guem7f0wgumk27rumdqvnhlda97wx27mf0jlh2
+**Give it a ⭐️star if you find this project useful** 
 
 ## License
 
