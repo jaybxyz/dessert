@@ -4,7 +4,17 @@
 <img  src="https://img.shields.io/badge/version-0.0.1-blue.svg?cacheSeconds=2592000" />
 </p>
 
-This repo is just like a dessert, which enables you to get to know how to work with [Cosmos SDK](https://github.com/cosmos/cosmos-sdk) based projects
+**[WARNING]: THIS PROJECT IS CURRENTLY A WORK IN PROGRESS.**
+
+## Overview
+
+This project is a very simple project that I am using as a toy project to hack with [Comsos SDK](https://github.com/cosmos/cosmos-sdk). This enables you to query your account balance, your accumulated rewards, and to create different types of transactions and broadcast them to either gaia testnet or mainnet. 
+
+I called this project `dessert` because it is like dessert that gives you an appetite of how to work with Cosmos SDK. I hope that this will help any developer out there to grasp an understanding of how to hack with Cosmos SDK.
+
+Give ⭐️ if anyone who finds this useful, and feel free to add comments or requests in [issues](https://github.com/kogisin/dessert/issues). I will be working from time to time. 
+
+Enjoy :smile:
 
 ## Table of Contents
 
@@ -21,16 +31,23 @@ This repo is just like a dessert, which enables you to get to know how to work w
 
 This project assumes that you already know [Go language](https://golang.org/) and know how to use [Go Modules](https://github.com/golang/go/wiki/Modules)
 
-- Prepare your own RPC & LCD endpoints or use available public node to connect to
+- Require [Go 1.13+](https://golang.org/dl/)
+- Prepare endpoints for your own full node and REST server. If you don't have one, ask [Riot](riot.cosmos.network) channel for any available public full node to connect to.
 
 ## Installation
 
-Clone this repository
+Clone this repository using `git`.
 ```
 $ git clone https://github.com/kogisin/dessert.git
 ```
 
-Build executable file `dessert`
+Dessert has a simple way to create a configuration file.
+(Other option: copy `example.toml` file and paste it in the same directory and change the name as `config.toml`
+```
+$ dessert init
+```
+
+Install an executable file `dessert`
 ```
 $ go build
 
@@ -39,17 +56,28 @@ OR
 $ make install 
 ```
 
-Create configuration file named `config.toml`
-You can also just copy `example.toml` file and paste in the same level of directory and name it `config.toml`
-```
-$ dessert init
-```
-
 ## Usage
+
+Dessert has a few subcommands that you can hack around. By putting your mnemonic in `config.toml`, `dessert` has full control over your wallet. I recommend you to use test wallet.
+
+- Init
+- Version
+- Query 
+- Tx 
+- Wallet
 
 ## Examples
 
+Check your account balance
+```
+$ dessert q balance
+```
+
 ## Progress
+
+- Add more queries
+- Add unit tests
+- Implement REST Server that behaves as Comsos SDK Light Client. 
 
 ## Contributing
 
