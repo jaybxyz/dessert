@@ -14,7 +14,7 @@ require (
 	github.com/stretchr/testify v1.4.0
 	github.com/tendermint/tendermint v0.31.10
 	gopkg.in/resty.v1 v1.12.0
-	gopkg.in/yaml.v2 v2.2.2
+	gopkg.in/yaml.v2 v2.2.8
 )
 
 replace golang.org/x/crypto => github.com/tendermint/crypto v0.0.0-20180820045704-3764759f34a5
