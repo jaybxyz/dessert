@@ -12,7 +12,7 @@ require (
 	github.com/sirkon/goproxy v1.4.8
 	github.com/spf13/cobra v0.0.5
 	github.com/stretchr/testify v1.4.0
-	github.com/tendermint/tendermint v0.31.10
+	github.com/tendermint/tendermint v0.31.12
 	gopkg.in/resty.v1 v1.12.0
 	gopkg.in/yaml.v2 v2.2.2
 )
